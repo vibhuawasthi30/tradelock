@@ -1,0 +1,70 @@
+{
+  "manifest_version": 3,
+  "name": "TradeLock \u2014 Stay Disciplined",
+  "version": "1.10.0",
+  "description": "Live crypto watchlist and a FOMO token paper-trading widget.",
+  "permissions": [
+    "storage",
+    "alarms"
+  ],
+  "host_permissions": [
+    "https://api.exchange.coinbase.com/*",
+    "https://fomo.family/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "TradeLock",
+    "default_icon": {
+      "16": "assets/icons/tradelock-16.png",
+      "32": "assets/icons/tradelock-32.png"
+    }
+  },
+  "icons": {
+    "16": "assets/icons/tradelock-16.png",
+    "32": "assets/icons/tradelock-32.png",
+    "48": "assets/icons/tradelock-48.png",
+    "128": "assets/icons/tradelock-128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://fomo.family/*"
+      ],
+      "js": [
+        "chart-lines.js"
+      ],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": [
+        "https://fomo.family/*"
+      ],
+      "js": [
+        "theme.js",
+        "paper-core.js",
+        "share-card.js",
+        "widget-template.js",
+        "monte-carlo.js",
+        "monte-carlo-panel.js",
+        "widget.js",
+        "fomo-content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "assets/icons/*.png",
+        "demo-*.json"
+      ],
+      "matches": [
+        "https://fomo.family/*"
+      ]
+    }
+  ]
+}
